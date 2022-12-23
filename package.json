@@ -2,9 +2,11 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon --inspect index.js",
+    "start": "nodemon --inspect src/index.js",
+    "watch": "sass -w src/resources/scss/ --output src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,9 +24,13 @@
   },
   "homepage": "https://github.com/sennguyen3010/nodejs#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "sass": "^1.57.1"
   },
   "devDependencies": {
+    "dart-sass": "^1.25.0",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
 }
