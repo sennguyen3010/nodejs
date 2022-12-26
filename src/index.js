@@ -12,6 +12,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
+//body-parser (XMLhttpRequest, axios, fetch)
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //HTTP logger
@@ -27,6 +35,19 @@ console.log(path.join(__dirname));
 app.get('/', (req, res) => {
   // res.send('Hello World!');
   res.render('home');
+});
+
+app.get('/news', (req, res) => {
+  res.render('news');
+});
+
+app.get('/query', (req, res) => {
+  res.render('query');
+});
+
+app.post('/query', (req, res) => {
+  console.log(req.body);
+  res.send('');
 });
 
 app.listen(port, () => {
