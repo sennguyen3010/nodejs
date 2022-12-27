@@ -3,6 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { route } from './routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -30,26 +31,16 @@ app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, '/resources', '/views'));
 
-console.log(path.join(__dirname));
+// console.log(path.join(__dirname));
 
-app.get('/', (req, res) => {
-  // res.send('Hello World!');
-  res.render('home');
-});
-
-app.get('/news', (req, res) => {
-  res.render('news');
-});
-
-app.get('/query', (req, res) => {
-  res.render('query');
-});
-
-app.post('/query', (req, res) => {
-  console.log(req.body);
-  res.send('');
-});
+// Routes init
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+//MVC: (M: model, V: view, C: controller (web server -> routes -> dispatcher))
+//Local host --- Hosting
+
+//Action ---> Dispatcher ---> Function handler
