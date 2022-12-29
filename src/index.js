@@ -4,6 +4,27 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { route } from './routes/index.js';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
+dotenv.config();
+
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO);
+    console.log('connected to mongoDB');
+  } catch (error) {
+    throw error;
+  }
+};
+
+mongoose.connection.on('disconnected', () => {
+  console.log('mongoDB disconnected!');
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('mongoDB connected!');
+});
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -37,6 +58,7 @@ app.set('views', path.join(__dirname, '/resources', '/views'));
 route(app);
 
 app.listen(port, () => {
+  connect();
   console.log(`Example app listening on port ${port}`);
 });
 
