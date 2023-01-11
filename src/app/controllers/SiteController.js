@@ -1,8 +1,8 @@
 import { mongooseObj } from '../../util/mongoose.js';
-import Course from '../models/Course.js';
+import { MyModel as CourseSchema } from '../models/Course.js';
 class SiteController {
   index(req, res, next) {
-    Course.find({})
+    CourseSchema.find({})
       .then((courses) =>
         res.render('home', {
           courses: mongooseObj.multipleMongooseToObject(courses),
