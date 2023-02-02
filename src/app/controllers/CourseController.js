@@ -28,6 +28,24 @@ class CourseController {
       .then(() => res.redirect('/'))
       .catch((err) => {});
   }
+
+  // [GET] /courses/:id/edit
+  edit(req, res, next) {
+    CourseSchema.findById(req.params.id)
+      .then((course) =>
+        res.render('courses/edit', {
+          course: mongooseObj.mongooseToObject(course),
+        })
+      )
+      .catch(next);
+  }
+
+  // [PUT] /courses/:id
+  update(req, res, next) {
+    CourseSchema.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect('/me/stored/courses'))
+      .catch(next);
+  }
 }
 
 export default new CourseController();

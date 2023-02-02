@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { route } from './routes/index.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import methodOverride from 'method-override';
 
 dotenv.config();
 
@@ -42,13 +43,18 @@ app.use(
 );
 app.use(express.json());
 
+app.use(methodOverride('_method'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //HTTP logger
 app.use(morgan('combined'));
 
 //Template engine
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine(
+  '.hbs',
+  engine({ extname: '.hbs', helpers: { sum: (a, b) => a + b } })
+);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
