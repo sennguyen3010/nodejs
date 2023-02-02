@@ -46,6 +46,13 @@ class CourseController {
       .then(() => res.redirect('/me/stored/courses'))
       .catch(next);
   }
+
+  // [DELETE] /courses/:id
+  delete(req, res, next) {
+    CourseSchema.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
 }
 
 export default new CourseController();
